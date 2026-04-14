@@ -5,7 +5,15 @@ import os
 
 load_dotenv()
 
-engine = create_engine(os.getenv("DATABASE_URL"))
+engine = create_engine(
+   url=os.getenv("DATABASE_URL"),
+    echo=False,
+    pool_pre_ping=True,          # Important for Neon (wakes up sleeping DB)
+    connect_args={
+        "connect_timeout": 15,
+        "sslmode": "require"
+    }
+)
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 

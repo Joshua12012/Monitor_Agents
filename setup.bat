@@ -56,13 +56,13 @@ IF NOT EXIST .env (
 )
 
 REM Step 8 — Check files
-IF NOT EXIST main.py (
+IF NOT EXIST src/main.py (
     echo ❌ main.py not found!
     pause
     exit /b
 )
 
-IF NOT EXIST app.py (
+IF NOT EXIST src/app.py (
     echo ❌ app.py not found!
     pause
     exit /b
@@ -70,11 +70,11 @@ IF NOT EXIST app.py (
 
 REM Step 9 — Start FastAPI in new window
 echo 🌐 Starting FastAPI backend...
-start cmd /k "call venv\Scripts\activate && uvicorn main:app --reload"
+start cmd /k "call venv\Scripts\activate && cd src  && uvicorn main:app --reload"
 
 REM Step 10 — Start Gradio in new window
 echo 🎨 Starting Gradio UI...
-start cmd /k "call venv\Scripts\activate && python app.py"
+start cmd /k "call venv\Scripts\activate && cd src  && python app.py"
 
 echo ======================================
 echo ✅ Both services started!

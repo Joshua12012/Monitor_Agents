@@ -1,13 +1,24 @@
+from pathlib import Path
+import sys
+# Ensure the absolute root directory of the project is in the Python path
+ROOT = str(Path(__file__).resolve().parent.parent)
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
+
 from fastapi import FastAPI, Depends
-from auth import verify_token
-from database import get_db, engine
-from models import Base, Agent, AgentCreate, StatusUpdate
-from llm import get_health_summary
+from src.auth import verify_token
+from src.database import get_db, engine
+from src.models import Base, Agent, AgentCreate, StatusUpdate
+from src.llm import get_health_summary
 from fastapi import Security
 
-
+from dotenv import load_dotenv
+load_dotenv()
 from fastapi import Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+
 
 security = HTTPBearer()
 
